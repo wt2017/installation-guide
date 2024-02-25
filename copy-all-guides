@@ -1,0 +1,4 @@
+#!/bin/sh
+cp /home/wyou/Kernel/compile-guide ./compile-guide-Kernel
+cp /home/wyou/GPU/installation-guide-for-baremental ./installation-guide-for-baremental-GPU
+cp /home/wyou/Kubernetes/installation-guide ./installation-guide-Kubernetes

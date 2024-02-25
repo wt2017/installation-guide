@@ -1,0 +1,41 @@
+guide : https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
+
+#1 echo -e "blacklist nouveau\noptions nouveau modeset=0" | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
+
+#2 sudo dracut --force
+
+#3 sudo systemctl set-default multi-user.target
+
+#4 sudo reboot
+
+#5 chmod +x NVIDIA-Linux-*.run
+
+#6 sudo ./NVIDIA-Linux-*.run
+
+#7 ok/nok for prompt
+
+#8 sudo systemctl set-default graphical.target
+
+#9 sudo reboot
+
+#10 nvidia-smi
+
+cuda toolkit
+#11 dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/fedora37/x86_64/cuda-fedora37.repo
+
+#12 dnf -y install cuda-toolkit-12-2  / dnf clean packages
+
+cudnn (not mandatory: without below installation, cuda-toolkit-12-2 installation above already installed cudnn together)
+#13 tar -xf cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz
+
+#14 cp cudnn-linux-x86_64-8.9.7.29_cuda12-archive/include/cudnn*.h /usr/local/cuda/include
+
+#15 cp -P cudnn-linux-x86_64-8.9.7.29_cuda12-archive/lib/libcudnn* /usr/local/cuda/lib64
+
+#16 chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+
+pytorch (suggest to install this into virtual environment, e.g., pod/container)
+#17 pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu121
+
+nvidia crio
+# see /home/wyou/Kubernetes/installation_guide #3

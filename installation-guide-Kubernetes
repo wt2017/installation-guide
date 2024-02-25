@@ -1,0 +1,109 @@
+#1 installation overview : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+
+#1.1 cri-o : source based compilation and installation : https://github.com/cri-o/cri-o/blob/main/install.md#build-and-install-cri-o-from-source
+     podman is the tool for cri-o !!! don't use docker !
+     replace every docker command with podman !
+     It's also important to execute podman as root since rootless images are stored somewhere else !
+
+#1.2 go : install go in /usr/local/go : https://go.dev/doc/install
+
+#1.3 cni : compile and install cni : https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md
+
+#1.4 swap : turn off permenently : https://unix.stackexchange.com/questions/674196/cannot-disable-swap
+
+#1.5 kubectl : install guide : https://kubernetes.io/docs/tasks/tools/
+
+#1.6 kubeadm kubelet (kubectl) : install guide : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+             api guide : https://kubernetes.io/docs/reference/setup-tools/kubeadm/
+
+#1.7 cgroup driver : update cgroupDriver value from cgroupfs to systemd
+                   nothing to do since : In v1.22 and later, if the user does not set the cgroupDriver field under KubeletConfiguration, kubeadm defaults it to systemd
+
+
+
+
+#2. cluster creation overview : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+#2.1 kernel module installation:
+            cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+            > bridge
+            > br_netfilter
+            > EOF
+
+#2.2 kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --pod-network-cidr=10.244.0.0/16
+     #2.2.1
+     PauseImage repository can't be changed by parameter --image-repository, so one work around is made as,
+        func (c *ImageConfig) ParsePauseImage() (references.RegistryImageReference, error) {
+	    // WYOU : hardcode the PauseImage repository as workaround
+	    c.PauseImage = "registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9"
+	    return references.ParseRegistryImageReferenceFromOutOfProcessData(c.PauseImage)
+        }
+
+     #2.2.2
+     --pod-network-cidr=10.244.0.0/16 is mandatory for flannel network cni !!!
+
+     Successful result:
+     "
+         Alternatively, if you are the root user, you can run:
+
+           export KUBECONFIG=/etc/kubernetes/admin.conf
+
+         You should now deploy a pod network to the cluster.
+         Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+           https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+         Then you can join any number of worker nodes by running the following on each as root:
+           kubeadm join 192.168.0.110:6443 --token jogvki.72p69y9vbkx8cmxz \
+        	--discovery-token-ca-cert-hash sha256:aad81c3540301656f3bebd0234d304d614a4f362ae871e519fb1119fc16fadc1 
+     "
+
+#2.3 network : pod network creation : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network
+             kubernetes network model : https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model
+             addon list : https://kubernetes.io/docs/concepts/cluster-administration/addons/
+                          candidate solution : Multus + OVN-Kubernetes
+
+#3 nvidia crio : 
+#3.1 curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
+     sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+
+#3.2 dnf install -y nvidia-container-toolkit
+     nvidia-ctk runtime configure --runtime=crio
+     or
+     nvidia-ctk runtime configure --runtime=crio --set-as-default --config=/etc/crio/crio.conf.d/99-nvidia.conf
+     systemctl restart crio
+#3.3 gpu-operator: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html#operator-install-guide
+     #3.3.1 node-feature-discovery: (no need for node-feature-discovery-operator)
+            git clone https://github.com/kubernetes-sigs/node-feature-discovery
+            kubectl apply -k deployment/overlays/default
+     #3.3.2 cd /home/wyou/Kubernetes/nvidia/gpu-operator/deployments/gpu-operator
+            helm install --wait --generate-name -n gpu-operator --create-namespace nvidia/gpu-operator --set driver.enabled=false --set toolkit.enabled=false --set cdi.enabled=true --set nfd.enabled=false
+
+#note:
+     docker : to stop docker service : systemctl stop docker.socket (stop docker.service can't permanently stop it)
+     containerd : to stop containerd service : systemctl stop containerd.service
+
+#4 permission
+     chmod 644 /etc/kubernetes/admin.conf
+#5 untainted control-plane node
+     kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+
+
+FINAL CLUSTER:(kubectl get pods --all-namespace)
+NAMESPACE                NAME                                   READY   STATUS      RESTARTS   AGE
+gpu-operator             gpu-feature-discovery-6v2tv            1/1     Running     0          5m21s
+gpu-operator             gpu-operator-5df7f9b8c6-z74ts          1/1     Running     0          5m40s
+gpu-operator             nvidia-cuda-validator-mfck9            0/1     Completed   0          5m7s
+gpu-operator             nvidia-dcgm-exporter-5r6z8             1/1     Running     0          5m21s
+gpu-operator             nvidia-device-plugin-daemonset-t8j9p   1/1     Running     0          5m21s
+gpu-operator             nvidia-operator-validator-hs2z8        1/1     Running     0          5m21s
+kube-flannel             kube-flannel-ds-xkf6f                  1/1     Running     30         45d
+kube-system              coredns-5f98f8d567-flpwn               1/1     Running     30         45d
+kube-system              coredns-5f98f8d567-j27gk               1/1     Running     30         45d
+kube-system              etcd-fedora                            1/1     Running     443        45d
+kube-system              kube-apiserver-fedora                  1/1     Running     417        45d
+kube-system              kube-controller-manager-fedora         1/1     Running     40         45d
+kube-system              kube-proxy-jlgws                       1/1     Running     30         45d
+kube-system              kube-scheduler-fedora                  1/1     Running     42         45d
+node-feature-discovery   nfd-gc-64b58969cb-jhrrk                1/1     Running     0          52m
+node-feature-discovery   nfd-master-7ccccd5868-n4lwk            1/1     Running     0          52m
+node-feature-discovery   nfd-worker-kvq6t                       1/1     Running     0          52m
+
