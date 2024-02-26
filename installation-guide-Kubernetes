@@ -74,8 +74,10 @@
      #3.3.1 node-feature-discovery: (no need for node-feature-discovery-operator)
             git clone https://github.com/kubernetes-sigs/node-feature-discovery
             kubectl apply -k deployment/overlays/default
-     #3.3.2 cd /home/wyou/Kubernetes/nvidia/gpu-operator/deployments/gpu-operator
+     #3.3.2 gpu-operator:
+            cd /home/wyou/Kubernetes/nvidia/gpu-operator/deployments/gpu-operator
             helm install --wait --generate-name -n gpu-operator --create-namespace nvidia/gpu-operator --set driver.enabled=false --set toolkit.enabled=false --set cdi.enabled=true --set nfd.enabled=false
+     #3.3.3 time slicing: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html            
 
 #note:
      docker : to stop docker service : systemctl stop docker.socket (stop docker.service can't permanently stop it)
