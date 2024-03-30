@@ -1,0 +1,17 @@
+#1 untar
+#2 cp configure ./Virtualxxxx
+#3 cd /Virtualxxxx
+#4 .configure --disable-hardening
+
+Successfully generated '/home/wyou/data/partition1/projects/virtualbox/VirtualBox-7.0.14/AutoConfig.kmk' and '/home/wyou/data/partition1/projects/virtualbox/VirtualBox-7.0.14/env.sh'.
+Source '/home/wyou/data/partition1/projects/virtualbox/VirtualBox-7.0.14/env.sh' once before you start to build VBox:
+
+  source /home/wyou/data/partition1/projects/virtualbox/VirtualBox-7.0.14/env.sh
+  # kmk
+  kmk BUILD_TYPE=debug
+
+To compile the kernel modules, do:
+
+  cd ./out/linux.amd64/release/bin/src
+  make
+

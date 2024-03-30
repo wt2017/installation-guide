@@ -1,3 +1,5 @@
 #1 download package from https://go.dev/doc/install
 #2 tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
 #3 add export command in /etc/profile.d/wyou.sh
+#4 click go version botton on status bar of vscode at the right bottom
+#5 select the installed path /usr/local/go in box at vscode middle top
