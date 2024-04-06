@@ -1,7 +1,10 @@
 #1 installation overview : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
-#1.1 cri-o : source based compilation and installation : https://github.com/cri-o/cri-o/blob/main/install.md#build-and-install-cri-o-from-source
-     If you are installing for the first time, generate and install configuration files with: sudo make install.config
+#1.1 cri-o : source based compilation and installation :
+               https://github.com/cri-o/cri-o/blob/main/install.md#build-and-install-cri-o-from-source
+               https://github.com/cri-o/cri-o/blob/main/install.md#starting-cri-o
+                     If you are installing for the first time, generate and install configuration files with: sudo make install.config
+                     You can run it manually there, or you can set up a systemd unit file with: sudo make install.systemd
      Note:
          podman is the tool for cri-o !!! don't use docker !
          replace every docker command with podman !
