@@ -16,13 +16,15 @@
 
 #1.4 swap : turn off permenently : https://unix.stackexchange.com/questions/674196/cannot-disable-swap
 
-#1.5 kubectl : install guide : https://kubernetes.io/docs/tasks/tools/
+[optional] #1.5 kubectl : install guide : https://kubernetes.io/docs/tasks/tools/
+Rationale: step #1.6 includes kubectl together
 
-#1.6 kubeadm kubelet (kubectl) : install guide : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
-             api guide : https://kubernetes.io/docs/reference/setup-tools/kubeadm/
+#1.6 kubeadm kubelet kubectl : install guide : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+                                     api guide : https://kubernetes.io/docs/reference/setup-tools/kubeadm/
+                               command: sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-#1.7 cgroup driver : update cgroupDriver value from cgroupfs to systemd
-                   nothing to do since : In v1.22 and later, if the user does not set the cgroupDriver field under KubeletConfiguration, kubeadm defaults it to systemd
+[nothing to do] #1.7 cgroup driver : update cgroupDriver value from cgroupfs to systemd
+Rationale: In v1.22 and later, if the user does not set the cgroupDriver field under KubeletConfiguration, kubeadm defaults it to systemd
 
 
 
