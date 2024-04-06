@@ -1,9 +1,11 @@
 #1 installation overview : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
 #1.1 cri-o : source based compilation and installation : https://github.com/cri-o/cri-o/blob/main/install.md#build-and-install-cri-o-from-source
-     podman is the tool for cri-o !!! don't use docker !
-     replace every docker command with podman !
-     It's also important to execute podman as root since rootless images are stored somewhere else !
+     If you are installing for the first time, generate and install configuration files with: sudo make install.config
+     Note:
+         podman is the tool for cri-o !!! don't use docker !
+         replace every docker command with podman !
+         It's also important to execute podman as root since rootless images are stored somewhere else !
 
 #1.2 go : install go in /usr/local/go : https://go.dev/doc/install
 
