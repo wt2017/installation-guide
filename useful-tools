@@ -9,8 +9,6 @@ Ctrl-b + “ – divide a window into two panes vertically.
 Ctrl-b + arrow – move to a different pane in a direction.
 Ctrl-b + x – close the current pane.
 Ctrl-b + c – create a new window.
-Ctrl-b + n – move to the next window based on the number.
-Ctrl-b + p – return to the previous window.
 Ctrl-b + ID number – jump to a specific window using the ID number.
 Ctrl-b + : – open the command line mode.
 Ctrl-b + ? – print all shortcuts.
