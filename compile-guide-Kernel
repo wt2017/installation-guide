@@ -1,4 +1,5 @@
-#0 rpm2cpio .tar | cpio -idmv
+#0 rpm2cpio .rpm | cpio -idmv
+   tar -xf .tar.xz
 
 #1 make menuconfig
 
