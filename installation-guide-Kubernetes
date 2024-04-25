@@ -5,6 +5,7 @@
                https://github.com/cri-o/cri-o/blob/main/install.md#starting-cri-o
                      If you are installing for the first time, generate and install configuration files with: sudo make install.config
                      You can run it manually there, or you can set up a systemd unit file with: sudo make install.systemd
+               on some environment, conmon (https://github.com/containers/conmon) is mandatory
      Note:
          podman is the tool for cri-o !!! don't use docker !
          replace every docker command with podman !
