@@ -1,11 +1,13 @@
 #0 rpm2cpio .rpm | cpio -idmv
    tar -xf .tar.xz
 
-#1 make menuconfig
+#1 sudo dnf install ncurses-devel flex bison elfutils-libelf-devel openssl-devel bc dwarves zstd
 
-#2 make -j6
+#2 make menuconfig
 
-#3 make INSTALL_MOD_STRIP=1 modules_install
+#3 make -j6
 
-#4 make INSTALL_MOD_STRIP=1 install
+#4 make INSTALL_MOD_STRIP=1 modules_install
+
+#5 make INSTALL_MOD_STRIP=1 install
 
