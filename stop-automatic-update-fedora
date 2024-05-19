@@ -1,5 +1,9 @@
+sudo systemctl disable dnf-automatic.timer
+sudo systemctl stop dnf-automatic.timer
+sudo systemctl disable dnf-automatic.service
+sudo systemctl stop dnf-automatic.service
+
 sudo systemctl disable dnf-makecache.timer
 sudo systemctl stop dnf-makecache.timer
 sudo systemctl disable dnf-makecache.service
 sudo systemctl stop dnf-makecache.service
-
