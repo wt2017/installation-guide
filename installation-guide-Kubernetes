@@ -18,7 +18,8 @@
 
 #1.3 go : install go in /usr/local/go : https://go.dev/doc/install
 
-#1.4 cni : compile and install cni : https://github.com/cri-o/cri-o/blob/main/contrib/cni/README.md
+#1.4 cni : compile and install cni : 
+           contrib/cni/README.md under git@github.com:wt2017/crio-wyou.git
 
 #1.5 swap : turn off permenently : https://unix.stackexchange.com/questions/674196/cannot-disable-swap
 
