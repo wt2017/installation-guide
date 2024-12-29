@@ -1,31 +1,12 @@
-guide : https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
-
-#1 disable graphical terminate, e.g. X server
-  #1.1 echo -e "blacklist nouveau\noptions nouveau modeset=0" | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
-
-  #1.2 sudo dracut --force
-
-  #1.3 sudo systemctl set-default multi-user.target
-
-  #1.4 sudo reboot
-
-#2 compile NVIDIA driver
-  #2.1 chmod +x NVIDIA-Linux-*.run
-
-  #2.2 sudo ./NVIDIA-Linux-*.run
-       note: nvidia driver compilation could fail due to some kernel EXPORT_SYMBOL_GPL(sym) API(symbol)
-           if so, then,
-             a) update #define EXPORT_SYMBOL_GPL(sym) in kernel
-             b) recompile and reinstall kernel, reboot
-
-  #2.3 ok/nok for prompt
-
-  #2.4 sudo systemctl set-default graphical.target
-
-  #2.5 sudo reboot
-
-#3 successfully use nvidia driver
-  #3.1 nvidia-smi
+baremetal:
+  sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf update -y
+  sudo dnf install akmod-nvidia
+  sudo dnf install kernel-headers kernel-devel
+  sudo reboot
+  sudo dnf install xorg-x11-drv-nvidia-cuda
+  nvidia-smi 
 
 nvidia crio
 # see /home/wyou/Kubernetes/installation_guide #3
