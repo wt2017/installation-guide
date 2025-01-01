@@ -140,6 +140,8 @@ Rationale: In v1.22 and later, if the user does not set the cgroupDriver field u
                           candidate solution : Multus + OVN-Kubernetes
 
      command: kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+     [container images is backup in filen] kubectl apply -f kube-flannel.yml in https://github.com/wt2017/flannel-manifest-wyou.git
+              
      note: docker.io is blocked by PRC, then 
            2.3.1 curl -L -Ohttps://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
            2.3.2 edit kube-flannel.yml, update docker.io to dockerproxy.cn, see updated kube-flannel.yml
