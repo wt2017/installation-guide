@@ -30,6 +30,7 @@ Rationale: step #1.6 includes kubectl together
                                      api guide : https://kubernetes.io/docs/reference/setup-tools/kubeadm/
      [before fedora 41] sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
      [since fedora 41 Versioned Kubernetes RPMS is introduced] sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
+     sudo systemctl enable --now kubelet
 
 [nothing to do] #1.8 cgroup driver : update cgroupDriver value from cgroupfs to systemd
 Rationale: In v1.22 and later, if the user does not set the cgroupDriver field under KubeletConfiguration, kubeadm defaults it to systemd
