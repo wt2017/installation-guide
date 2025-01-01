@@ -63,7 +63,7 @@ Rationale: In v1.22 and later, if the user does not set the cgroupDriver field u
      #2.2.2
      --cri-socket unix:///var/run/crio/crio.sock to set the crio socket when multiple ones exsit, e.g. containerd.sock by docker
 
-     #2.2.3
+     #2.2.3 [No need for self-compiled v1.31.4-dirty]
      PauseImage repository can't be changed by parameter --image-repository, so one work around is made as.
      Note: have a try w/o below workaround since it could be fixed by later released code.
 
@@ -162,33 +162,26 @@ Rationale: In v1.22 and later, if the user does not set the cgroupDriver field u
 
 
 #3 nvidia : 
-#3.1 install nvidia toolkit
+#3.1 install nvidia toolkit - source repository - https://github.com/NVIDIA/nvidia-container-toolkit/tree/v1.17.3 & https://github.com/NVIDIA/libnvidia-container/tree/16f37fcafcbdaf67525135104d60d98d36688ba9
      #3.3.1 follow link for installation - https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-yum-or-dnf
      #3.3.4 follow link for crio configuation - https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-cri-o
 
 
 #3.3 gpu-operator: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html#operator-install-guide
-     #3.3.1 node-feature-discovery:
-            NOTE: no need for node-feature-discovery-operator!
+     #3.3.1 gpu-operator:
+       helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+       helm repo update
+       helm install --wait gpu-operator nvidia/gpu-operator     --namespace gpu-operator --create-namespace     --set nfd.enabled=true
+     [Alt]
+       helm install gpu-operator-v24.9.1.tgz  --wait gpu-operator nvidia/gpu-operator     --namespace gpu-operator --create-namespace     --set nfd.enabled=true
+                    -> helm package from: https://github.com/wt2017/gpu-operator-manifest-wyou.git
+                    -> container images are stored in filen/mega                 
 
-            git clone https://github.com/kubernetes-sigs/node-feature-discovery
-            kubectl apply -k deployment/overlays/default
-     #3.3.2 gpu-operator:
-            NOTE: opt-1 is valid; opt-2 is invalid yet
-            opt-1: helm repo add nvidia https://helm.ngc.nvidia.com/nvidia && helm repo update
-            opt-2: git clone https://github.com/NVIDIA/gpu-operator.git && cd /home/wyou/Kubernetes/nvidia/gpu-operator/deployments/gpu-operator
-
-            helm install --wait --generate-name -n gpu-operator --create-namespace nvidia/gpu-operator --set driver.enabled=false --set toolkit.enabled=false --set cdi.enabled=true --set cdi.default=true --set nfd.enabled=false
-     #3.3.3 time slicing: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html#applying-one-cluster-wide-configuration
-            note: Applying One Cluster-Wide Configuration section is valid for wyou env
-                  command below is mandatory to make multiple slice visible by "kubectl describe nodes":
-                     #3.3.3.1
-                     kubectl create -n gpu-operator -f time-slicing-config-all.yaml -> time-slicing-config-all.yaml is in folder /home/wyou/Kubernetes/nvidia/gpu-time-slice
-
-                     #3.3.3.2
-                     kubectl patch clusterpolicies.nvidia.com/cluster-policy \
-                                                -n gpu-operator --type merge \
-                                                -p '{"spec": {"devicePlugin": {"config": {"name": "time-slicing-config-all", "default": "any"}}}}'
+     #3.3.2 time slicing: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html#applying-one-cluster-wide-configuration
+       kubectl create -n gpu-operator -f time-slicing-config-all.yaml -> from: https://github.com/wt2017/gpu-operator-manifest-wyou.git
+       kubectl patch clusterpolicies.nvidia.com/cluster-policy \
+                     -n gpu-operator --type merge \
+                     -p '{"spec": {"devicePlugin": {"config": {"name": "time-slicing-config-all", "default": "any"}}}}'
 
 #note:
      docker : to stop docker service : systemctl stop docker.socket (stop docker.service can't permanently stop it)
