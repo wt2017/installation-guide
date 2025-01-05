@@ -2,7 +2,9 @@
    kvm
    kvm_intel
 
-#  cat /etc/modprobe.d/blacklist.conf 
+#2 cat /etc/modprobe.d/blacklist.conf 
    #blacklist kvm
    #blacklist kvm_intel    # or kvm_amd for AMD processors
+
+#3 sudo systemctl start sshd
 
