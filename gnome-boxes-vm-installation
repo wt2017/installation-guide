@@ -1,0 +1,8 @@
+#1 cat /etc/modules-load.d/kvm.conf 
+   kvm
+   kvm_intel
+
+#  cat /etc/modprobe.d/blacklist.conf 
+   #blacklist kvm
+   #blacklist kvm_intel    # or kvm_amd for AMD processors
+
