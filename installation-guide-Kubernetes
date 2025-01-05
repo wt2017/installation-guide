@@ -1,9 +1,14 @@
 #1 installation overview : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
-#1.1 crun : source based compilation and installation :
+#1.1 preinstalled packages
+     sudo dnf install autoconf  libtool  make  automake  yajl-devel  libcap-devel  libseccomp-devel  systemd-devel
+     sudo dnf install glib2-devel   glibc-devel   glibc-static   gpgme-devel   libassuan-devel   libgpg-error-devel   libselinux-devel   pkgconfig
+
+
+#1.2 crun : source based compilation and installation :
                git@github.com:wt2017/crun-wyou.git based on https://github.com/containers/crun
                
-#1.2 cri-o : source based compilation and installation :
+#1.3 cri-o : source based compilation and installation :
                git@github.com:wt2017/crio-wyou.git
              based on :
                https://github.com/cri-o/cri-o/blob/main/install.md#build-and-install-cri-o-from-source
@@ -16,17 +21,17 @@
          replace every docker command with podman !
          It's also important to execute podman as root since rootless images are stored somewhere else !
 
-#1.3 go : install go in /usr/local/go : https://go.dev/doc/install
+#1.4 go : install go in /usr/local/go : https://go.dev/doc/install
 
-#1.4 cni : compile and install cni : document in contrib/cni/* under git@github.com:wt2017/crio-wyou.git
+#1.5 cni : compile and install cni : document in contrib/cni/* under git@github.com:wt2017/crio-wyou.git
                                      source repository : https://github.com/containernetworking/plugins
 
-#1.5 swap : turn off permenently : https://unix.stackexchange.com/questions/674196/cannot-disable-swap
+#1.6 swap : turn off permenently : https://unix.stackexchange.com/questions/674196/cannot-disable-swap
 
 [optional] #1.5 kubectl : install guide : https://kubernetes.io/docs/tasks/tools/
 Rationale: step #1.6 includes kubectl together
 
-#1.6 kubeadm kubelet kubectl : install guide : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+#1.7 kubeadm kubelet kubectl : install guide : https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
                                      api guide : https://kubernetes.io/docs/reference/setup-tools/kubeadm/
      [before fedora 41] sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
      [since fedora 41 Versioned Kubernetes RPMS is introduced] sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
