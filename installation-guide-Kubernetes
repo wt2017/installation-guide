@@ -24,7 +24,7 @@
 #1.4 go : install go in /usr/local/go : https://go.dev/doc/install
 
 #1.5 cni : compile and install cni : document in contrib/cni/* under git@github.com:wt2017/crio-wyou.git
-                                     source repository : https://github.com/containernetworking/plugins
+                                     source repository : git@github.com:wt2017/cni-wyou.git based on v1.2.0 of https://github.com/containernetworking/plugins
 
 #1.6 swap : turn off permenently : https://unix.stackexchange.com/questions/674196/cannot-disable-swap
 
