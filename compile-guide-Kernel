@@ -7,7 +7,7 @@
 
 #3 make -j6
 
-#4 make INSTALL_MOD_STRIP=1 modules_install
+#4 sudo make INSTALL_MOD_STRIP=1 modules_install
 
-#5 make INSTALL_MOD_STRIP=1 install
+#5 sudo make INSTALL_MOD_STRIP=1 install
 
