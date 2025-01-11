@@ -1,7 +1,7 @@
 #0 rpm2cpio .rpm | cpio -idmv
    tar -xf .tar.xz
 
-#1 sudo dnf install ncurses-devel flex bison elfutils-libelf-devel openssl-devel bc dwarves zstd
+#1 sudo dnf install make gcc openssl ncurses-devel flex bison elfutils-libelf-devel openssl-devel bc dwarves zstd
 
 #2 make menuconfig
 
