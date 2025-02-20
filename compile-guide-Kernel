@@ -11,3 +11,4 @@
 
 #5 sudo make INSTALL_MOD_STRIP=1 install
 
+#6 sudo depmod -a    // solve dependencies between modules
