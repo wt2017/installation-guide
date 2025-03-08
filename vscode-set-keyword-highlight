@@ -1,0 +1,7 @@
+#1 search colorCustomizations in setting -> workbench
+#2 add color for highlight
+
+		"workbench.colorCustomizations": {
+			"editor.selectionHighlightBackground": "#FF000080",
+    			"editor.selectionHighlightBorder": "#FF0000"
+		}
