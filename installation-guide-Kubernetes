@@ -7,6 +7,18 @@
 
 #1.2 crun : source based compilation and installation :
                git@github.com:wt2017/crun-wyou.git based on https://github.com/containers/crun
+
+     note: for nvidia-container-runtime, it uses automatically installed runc, so no need to compile crun by self which would NOT be used anymore
+                     ❯ nvidia-container-runtime --version
+                     NVIDIA Container Runtime version 1.17.7
+                     commit: bae3e7842ebe26812d8bd6a9be6a14a83dc91d8f
+                     spec: 1.2.1
+
+                     runc version 1.2.5
+                     commit: v1.2.5-0-g59923ef
+                     spec: 1.2.0
+                     go: go1.23.7
+                     libseccomp: 2.5.5
                
 #1.3 cri-o : source based compilation and installation :
                git@github.com:wt2017/crio-wyou.git
