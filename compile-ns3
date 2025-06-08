@@ -1,16 +1,19 @@
 sudo dnf install python3-pip python3-devel clang llvm boost-devel
 sudo dnf install graphviz graphviz-devel goocanvas2-devel
+sudo dnf install adwaita-icon-theme
+sudo gtk-update-icon-cache /usr/share/icons/Adwaita
 
 
 pip3 install --user cmake-format
 pip3 install --user cppyy cppyy-backend
 pip3 install --user matplotlib PyGObject
 pip3 install --user pygraphviz
+pip3 install --user kiwi-gtk kiwi
 
 echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
 echo 'export NS3_BINDINGS_INSTALL_DIR="$HOME/.local/lib/python$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')/site-packages"' >> ~/.bashrc
 source ~/.bashrc
 
 
-# Command: 
-./ns3 configure --enable-examples --enable-tests --enable-python-binding -- -DNS3_BINDINGS_INSTALL_DIR=$NS3_BINDINGS_INSTALL_DIR
+# Command:
+./ns3 configure --enable-examples --enable-tests --enable-python-bindings 
