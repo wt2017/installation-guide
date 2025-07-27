@@ -1,0 +1,14 @@
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'cat > /etc/yum.repos.d/vscode.repo << "EOF"
+
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+EOF'
+
+sudo dnf check-update
+sudo dnf install code
