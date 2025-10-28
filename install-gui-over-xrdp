@@ -1,0 +1,6 @@
+    3  sudo dnf update -y
+    4  sudo dnf groupinstall "Xfce" -y
+    5  sudo systemctl set-default multi-user.target
+    6  sudo dnf install epel-release -y
+    7  sudo dnf install xrdp -y
+    8  sudo systemctl enable xrdp --now
