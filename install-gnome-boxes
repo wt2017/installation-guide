@@ -1,0 +1,11 @@
+❯ ls -l /home/wyou/.local/share/gnome-boxes
+total 8
+lrwxrwxrwx. 1 wyou wyou 44 Dec  3 21:34 images -> /home/wyou/data/partition3/gnomeboxes/images
+lrwxrwxrwx. 1 wyou wyou 44 Jan  4  2025 images.bk -> /home/wyou/data/partition2/gnomeboxes/images
+
+
+Now the images of boxes vms are located under/home/wyou/data/partition3/gnomeboxes/images
+The backup copy before 2025.Dec.3 is kept in /home/wyou/data/partition2/gnomeboxes/images
+If u come to this guide again, u can:
+(1) mv images.bk images -> to use the old version of vms, or
+(2) delete images.bk and /home/wyou/data/partition2/gnomeboxes
