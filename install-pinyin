@@ -1,0 +1,9 @@
+
+# for ubuntu
+
+  ibus-setup -> Add Intelligent Pinyin
+  ibus restart
+
+  ibus engine -> Check whether "libpinyin"
+  if not, then
+    ibus engine libpinyin
