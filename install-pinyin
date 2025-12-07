@@ -6,4 +6,9 @@
 
   ibus engine -> Check whether "libpinyin"
   if not, then
-    ibus engine libpinyin
+    ibus engine libpinyin -> but it's not permanently kept after reboot
+
+  to permanently preload the pinyin, then
+    gsettings set org.freedesktop.ibus.general preload-engines "['pinyin', 'xkb:us::eng']"
+    OR
+    dconf write /desktop/ibus/general/preload-engines "['libpinyin', 'xkb:us::eng']"
