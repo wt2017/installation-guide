@@ -1,0 +1,4 @@
+sudo apt install cloud-guest-utils 
+sudo apt install parted
+sudo growpart /dev/vda3 -> detail disk needs to check by lsblk
+sudo resize2fs /dev/vda3
