@@ -1,0 +1,34 @@
+# install minicom from src
+git clone https://salsa.debian.org/minicom-team/minicom.git
+cd minicom
+git checkout -b rel-branch-2.10 remotes/origin/releases/2.10
+autoreconf -i
+./configure --prefix=/usr/local
+make
+sudo make install
+
+# find uart (e.g. respberry pi)
+❯ udevadm info --name=/dev/ttyACM0 --attribute-walk | grep -E "(vendor|product)"
+    ATTRS{product}=="Debug Probe (CMSIS-DAP)"
+    ATTRS{product}=="ASM107x"
+    ATTRS{product}=="xHCI Host Controller"
+    ATTRS{subsystem_vendor}=="0x1043"
+    ATTRS{vendor}=="0x8086"
+
+❯ sudo setserial -g /dev/ttyACM0
+/dev/ttyACM0, UART: unknown, Port: 0x0000, IRQ: 0
+
+# use minicom
+❯ sudo usermod -aG dialout $USER
+
+# reboot host
+
+❯ minicom -D /dev/ttyACM0 -b 115200 2>&1 | tail -30
+
+# trouble shooting
+❯ strace minicom -D /dev/ttyACM0 -b 115200 2>&1 | tail -30
+
+# quit minicom
+Ctrl+A
+Q
+Yes
