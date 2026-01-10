@@ -1,20 +1,70 @@
 
-# for ubuntu
+# for ubuntu 
 
-  sudo apt install ibus ibus-libpinyin
-  ibus-daemon -drx
-  im-config -n ibus
+  # Fcitx5 (recommanded)
+    # 临时停止 iBus
+    ibus exit
 
-  Open Settings → Region & Language → + Chinese (Intelligent Pinyin)
+    # 卸载 iBus（如果不想要了）
+    sudo pacman -Rns ibus  # Arch/Manjaro
+    sudo apt remove ibus   # Ubuntu/Debian
+    sudo dnf remove ibus   # Fedora
 
-  ibus-setup -> Add Intelligent Pinyin
-  ibus restart
+    # 安装 Fcitx5
+    sudo apt install fcitx5 fcitx5-config-qt fcitx5-frontend-gtk2 fcitx5-frontend-gtk3 fcitx5-frontend-qt5 # Ubuntu
+    sudo dnf install fcitx5 fcitx5-configtool fcitx5-gtk2 fcitx5-gtk3 fcitx5-qt5 # Fedora
 
-  ibus engine -> Check whether "libpinyin"
-  if not, then
-    ibus engine libpinyin -> but it's not permanently kept after reboot
+    # 安装输入法引擎
+    sudo apt install fcitx5-chinese-addons # Ubuntu
 
-  to permanently preload the pinyin, then
-    gsettings set org.freedesktop.ibus.general preload-engines "['pinyin', 'xkb:us::eng']"
-    OR
-    dconf write /desktop/ibus/general/preload-engines "['libpinyin', 'xkb:us::eng']"
+    # 配置环境变量
+    echo "GTK_IM_MODULE DEFAULT=fcitx5
+QT_IM_MODULE DEFAULT=fcitx5
+XMODIFIERS DEFAULT=@im=fcitx5" >> ~/.pam_environment
+
+    # 启动配置界面
+    fcitx5-configtool
+
+    # 添加中文输入法
+    打开配置工具后，点击左下角 "+（添加）" 按钮
+    取消勾选 "Only Show Current Language"
+    在搜索框中输入：
+
+      pinyin：注意不是 Chinese！找到 "Pinyin" 并添加（来自 fcitx5-chinese-addons）
+      rime：找到 "Rime" 并添加（如果你安装了 fcitx5-rime）
+
+    点击 OK 添加
+
+    # 快捷键
+    Ctrl+Space
+
+    # GNOME 自动启动,创建桌面启动项
+mkdir -p ~/.config/autostart
+cat > ~/.config/autostart/fcitx5.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Fcitx5
+Exec=fcitx5 -d
+Comment=Input Method Framework
+X-GNOME-Autostart-enabled=true
+EOF
+
+  # ibus option
+
+    sudo apt install ibus ibus-libpinyin
+    ibus-daemon -drx
+    im-config -n ibus
+
+    Open Settings → Region & Language → + Chinese (Intelligent Pinyin)
+
+    ibus-setup -> Add Intelligent Pinyin
+    ibus restart
+
+    ibus engine -> Check whether "libpinyin"
+    if not, then
+      ibus engine libpinyin -> but it's not permanently kept after reboot
+
+    to permanently preload the pinyin, then
+      gsettings set org.freedesktop.ibus.general preload-engines "['pinyin', 'xkb:us::eng']"
+      OR
+      dconf write /desktop/ibus/general/preload-engines "['libpinyin', 'xkb:us::eng']"
