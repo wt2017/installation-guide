@@ -4,6 +4,15 @@ baremetal:
   sudo dnf update -y
   sudo dnf install akmod-nvidia
   sudo dnf install kernel-headers kernel-devel
+
+  # MUST wait for nvidia drivers successfully built out, by
+  ls -la /lib/modules/$(uname -r)/extra/nvidia/*
+
+  # THEN add security boot key
+  sudo kmodgenca -a --force
+  sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+  # REMEMBER the input key, e.g. 123456
+
   sudo reboot
   sudo dnf install xorg-x11-drv-nvidia-cuda
   nvidia-smi 
