@@ -1,0 +1,7 @@
+cat /etc/opkg/distfeeds.conf
+src/gz openwrt_core https://downloads.openwrt.org/releases/24.10.5/targets/bcm27xx/bcm2712/packages
+src/gz openwrt_base https://downloads.openwrt.org/releases/24.10.5/packages/aarch64_cortex-a76/base
+src/gz openwrt_luci https://downloads.openwrt.org/releases/24.10.5/packages/aarch64_cortex-a76/luci
+src/gz openwrt_packages https://downloads.openwrt.org/releases/24.10.5/packages/aarch64_cortex-a76/packages
+src/gz openwrt_routing https://downloads.openwrt.org/releases/24.10.5/packages/aarch64_cortex-a76/routing
+src/gz openwrt_telephony https://downloads.openwrt.org/releases/24.10.5/packages/aarch64_cortex-a76/telephony
